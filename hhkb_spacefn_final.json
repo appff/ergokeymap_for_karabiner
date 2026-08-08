@@ -452,7 +452,7 @@
           },
           "to": [
             {
-              "key_code": "hyphen"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -475,7 +475,7 @@
           },
           "to": [
             {
-              "key_code": "equal_sign"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -498,7 +498,7 @@
           },
           "to": [
             {
-              "key_code": "backslash"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -521,7 +521,7 @@
           },
           "to": [
             {
-              "key_code": "grave_accent_and_tilde"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
