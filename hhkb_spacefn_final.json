@@ -337,7 +337,7 @@
           },
           "to": [
             {
-              "key_code": "open_bracket"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -360,7 +360,7 @@
           },
           "to": [
             {
-              "key_code": "close_bracket"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -570,7 +570,7 @@
           },
           "to": [
             {
-              "key_code": "volume_decrement"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -593,7 +593,7 @@
           },
           "to": [
             {
-              "key_code": "volume_increment"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
@@ -616,7 +616,7 @@
           },
           "to": [
             {
-              "key_code": "mute"
+              "key_code": "vk_none"
             }
           ],
           "conditions": [
