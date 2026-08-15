@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Silakka 54 · Vial keymap</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: light-dark(#f5f7fb, #101318);
+      --surface: light-dark(#ffffff, #171b22);
+      --surface-2: light-dark(#eef2f7, #202631);
+      --text: light-dark(#18202a, #f4f7fb);
+      --muted: light-dark(#657181, #a8b3c2);
+      --border: light-dark(#d7dee8, #303a49);
+      --accent: light-dark(#1769e0, #78a9ff);
+      --accent-soft: light-dark(#e6efff, #20385e);
+      --function: light-dark(#fff0d4, #4b3518);
+      --navigation: light-dark(#e8f5ed, #193c2a);
+      --symbol: light-dark(#f2eaff, #362553);
+      --media: light-dark(#ffe9ed, #4b202b);
+      --transparent: light-dark(#f7f8fa, #1b2028);
+      --dead: light-dark(#e2e6eb, #2a3039);
+      --shadow: light-dark(0 10px 30px rgb(26 45 72 / 8%), 0 10px 30px rgb(0 0 0 / 26%));
+      --radius: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Pretendard", system-ui, sans-serif;
+      font-size: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--text);
+    }
+    button { font: inherit; }
+    .app {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 38px 0 56px;
+    }
+    header { margin-bottom: 24px; }
+    h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.25rem); letter-spacing: -0.04em; }
+    .subtitle { margin: 8px 0 0; color: var(--muted); }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 22px 0 16px;
+    }
+    .layer-button {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--text);
+      background: var(--surface);
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease, transform .15s ease;
+    }
+    .layer-button:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .layer-button[aria-pressed="true"] { color: var(--accent); background: var(--accent-soft); border-color: var(--accent); }
+    .layer-status { margin-left: auto; color: var(--muted); font-size: .9rem; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .summary-item {
+      padding: 13px 15px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .summary-label { display: block; color: var(--muted); font-size: .78rem; }
+    .summary-value { display: block; margin-top: 4px; font-weight: 600; }
+    .selection {
+      min-height: 42px;
+      margin-bottom: 18px;
+      padding: 11px 14px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--text);
+      border-radius: 8px;
+    }
+    .board-shell {
+      overflow-x: auto;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .board {
+      min-width: 780px;
+      display: grid;
+      gap: 8px;
+    }
+    .board-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+    .half { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; }
+    .half-gap { border-right: 1px dashed var(--border); }
+    .key {
+      position: relative;
+      min-height: 66px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      padding: 7px 5px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      background: var(--surface-2);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+    .key:hover, .key:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); outline: none; transform: translateY(-1px); }
+    .key.physical { background: var(--surface); }
+    .key.function { background: var(--function); }
+    .key.navigation { background: var(--navigation); }
+    .key.symbol { background: var(--symbol); }
+    .key.media { background: var(--media); }
+    .key.transparent { background: var(--transparent); color: var(--muted); }
+    .key.dead { background: var(--dead); border-color: transparent; cursor: default; opacity: .55; }
+    .physical-label { color: var(--muted); font-size: .68rem; line-height: 1; }
+    .key-label { font-size: .86rem; font-weight: 600; line-height: 1.1; overflow-wrap: anywhere; }
+    .key-index { position: absolute; top: 5px; right: 7px; color: var(--muted); font-size: .62rem; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 16px; color: var(--muted); font-size: .82rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch { width: 11px; height: 11px; border: 1px solid var(--border); border-radius: 3px; }
+    .swatch.function { background: var(--function); }
+    .swatch.navigation { background: var(--navigation); }
+    .swatch.symbol { background: var(--symbol); }
+    .swatch.media { background: var(--media); }
+    .swatch.transparent { background: var(--transparent); }
+    .notes { margin: 18px 0 0; color: var(--muted); font-size: .85rem; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+    @media (max-width: 680px) {
+      .app { width: min(100% - 20px, 1120px); padding-top: 24px; }
+      .summary { grid-template-columns: 1fr; }
+      .layer-status { width: 100%; margin-left: 0; }
+      .board-shell { padding: 12px; }
+      .board { min-width: 700px; }
+      .key { min-height: 58px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="silakka-keymap-app">
+    <header>
+      <h1>Silakka 54 · Vial keymap</h1>
+      <p class="subtitle">현재 <code>silakka.vil</code>의 레이어별 키 배치</p>
+    </header>
+
+    <nav class="toolbar" aria-label="레이어 선택" id="layer-picker"></nav>
+    <div class="summary" aria-live="polite" id="summary"></div>
+    <div class="selection" id="selection">키를 선택하면 물리 키와 출력 동작을 자세히 볼 수 있습니다.</div>
+
+    <section class="board-shell" aria-label="키보드 레이아웃">
+      <div class="board" id="board" role="grid" aria-label="Silakka 54 키맵"></div>
+    </section>
+
+    <div class="legend" aria-label="색상 범례">
+      <span><i class="swatch function"></i>기능키</span>
+      <span><i class="swatch navigation"></i>내비게이션·편집</span>
+      <span><i class="swatch symbol"></i>기호</span>
+      <span><i class="swatch media"></i>볼륨</span>
+      <span><i class="swatch transparent"></i>투과/하위 레이어</span>
+    </div>
+    <p class="notes">기본 레이어의 <code>MO(1)</code>/<code>MO(2)</code>는 해당 레이어를 누르고 있는 동안 활성화됩니다. Layer 2는 현재 비어 있으며 번호 호환을 위해 슬롯만 유지됩니다.</p>
+  </main>
+
+  <script>
+    const sourceLayers = [[[
+      "KC_ESCAPE","KC_1","KC_2","KC_3","KC_4","KC_5"
+    ],[
+      "KC_TAB","KC_Q","KC_W","KC_E","KC_R","KC_T"
+    ],[
+      "KC_LCTRL","KC_A","KC_S","KC_D","KC_F","KC_G"
+    ],[
+      "KC_LSHIFT","KC_Z","KC_X","KC_C","KC_V","KC_B"
+    ],[
+      -1,-1,-1,"KC_LALT","KC_LGUI","KC_SPACE"
+    ],[
+      "KC_BSPACE","KC_0","KC_9","KC_8","KC_7","KC_6"
+    ],[
+      "KC_LBRACKET","KC_P","KC_O","KC_I","KC_U","KC_Y"
+    ],[
+      "KC_ENTER","KC_SCOLON","KC_L","KC_K","KC_J","KC_H"
+    ],[
+      "KC_RBRACKET","KC_SLASH","KC_DOT","KC_COMMA","KC_M","KC_N"
+    ],[
+      -1,-1,-1,"MO(2)","MO(1)","KC_SPACE"
+    ]],[[
+      "KC_TRNS","KC_F1","KC_F2","KC_F3","KC_F4","KC_F5"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_VOLD","KC_VOLU","KC_MUTE","KC_ESCAPE","KC_SCOLON"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      -1,-1,-1,"KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_F11","KC_F10","KC_F9","KC_F8","KC_F7","KC_F6"
+    ],[
+      "KC_F12","KC_EQUAL","KC_END","KC_UP","KC_HOME","KC_PGUP"
+    ],[
+      "KC_TRNS","KC_MINUS","KC_RIGHT","KC_DOWN","KC_LEFT","KC_PGDOWN"
+    ],[
+      "KC_LBRACKET","KC_RBRACKET","KC_ENTER","KC_DELETE","KC_BSPACE","S(KC_SLASH)"
+    ],[
+      -1,-1,-1,"KC_TRNS","KC_TRNS","KC_TRNS"
+    ]],[[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      -1,-1,-1,"KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
+    ],[
+      -1,-1,-1,"KC_TRNS","KC_TRNS","KC_TRNS"
+    ]]];
+
+    const base = sourceLayers[0];
+    const emptyLayer = () => base.map(row => row.map(value => value === -1 ? -1 : "KC_TRNS"));
+    const layout = [...sourceLayers, ...Array.from({ length: 5 }, emptyLayer)];
+    const layerNames = ["Base", "Layer 1 · HHKB", "Layer 2 · empty", "Layer 3 · empty", "Layer 4 · empty", "Layer 5 · empty", "Layer 6 · empty", "Layer 7 · empty"];
+    let selectedLayer = 0;
+    let selectedKey = null;
+
+    const aliases = {
+      KC_ESCAPE: "Esc", KC_TAB: "Tab", KC_LCTRL: "Ctrl", KC_LSHIFT: "Shift", KC_LALT: "Alt", KC_LGUI: "Cmd",
+      KC_SPACE: "Space", KC_BSPACE: "Backspace", KC_ENTER: "Enter", KC_SCOLON: ";", KC_LBRACKET: "[", KC_RBRACKET: "]",
+      KC_SLASH: "/", KC_DOT: ".", KC_COMMA: ",", KC_VOLD: "Vol −", KC_VOLU: "Vol +", KC_MUTE: "Mute",
+      KC_DELETE: "Delete", KC_EQUAL: "=", KC_MINUS: "−", KC_UP: "↑", KC_DOWN: "↓", KC_LEFT: "←", KC_RIGHT: "→",
+      KC_HOME: "Home", KC_END: "End", KC_PGUP: "Page Up", KC_PGDOWN: "Page Down", KC_TRNS: "Transparent",
+      "S(KC_SLASH)": "?", "MO(1)": "Hold → L1", "MO(2)": "Hold → L2"
+    };
+    for (let i = 1; i <= 12; i++) aliases[`KC_F${i}`] = `F${i}`;
+    for (const letter of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") aliases[`KC_${letter}`] = letter;
+    for (let i = 0; i <= 9; i++) aliases[`KC_${i}`] = String(i);
+
+    const label = value => value === -1 ? "" : (aliases[value] || value.replace(/^KC_/, ""));
+    const category = value => {
+      if (value === -1 || value === "KC_TRNS") return value === "KC_TRNS" ? "transparent" : "dead";
+      if (/^KC_F\d+$/.test(value)) return "function";
+      if (["KC_UP","KC_DOWN","KC_LEFT","KC_RIGHT","KC_HOME","KC_END","KC_PGUP","KC_PGDOWN","KC_DELETE","KC_BSPACE","KC_ENTER"].includes(value)) return "navigation";
+      if (["KC_EQUAL","KC_MINUS","KC_LBRACKET","KC_RBRACKET","S(KC_SLASH)","KC_SCOLON","KC_SLASH","KC_DOT","KC_COMMA"].includes(value)) return "symbol";
+      if (["KC_VOLD","KC_VOLU","KC_MUTE"].includes(value)) return "media";
+      return "physical";
+    };
+    const physicalRows = () => Array.from({ length: 5 }, (_, row) => ({
+      left: base[row], right: base[row + 5].slice().reverse(),
+      leftValues: layout[selectedLayer][row], rightValues: layout[selectedLayer][row + 5].slice().reverse(),
+      row
+    }));
+    const countKeys = values => values.flat().filter(value => value !== -1);
+    const mappedCount = values => values.flat().filter(value => value !== -1 && value !== "KC_TRNS").length;
+
+    function renderPicker() {
+      const picker = document.getElementById("layer-picker");
+      picker.innerHTML = "";
+      layerNames.forEach((name, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "layer-button";
+        button.textContent = `L${index} · ${name.split(" · ")[1] || name}`;
+        button.setAttribute("aria-pressed", String(index === selectedLayer));
+        button.addEventListener("click", () => { selectedLayer = index; selectedKey = null; render(); });
+        picker.appendChild(button);
+      });
+      const status = document.createElement("span");
+      status.className = "layer-status";
+      status.textContent = layerNames[selectedLayer];
+      picker.appendChild(status);
+    }
+
+    function renderSummary() {
+      const values = layout[selectedLayer];
+      const total = countKeys(values).length;
+      const mapped = mappedCount(values);
+      const transparent = total - mapped;
+      document.getElementById("summary").innerHTML = `
+        <div class="summary-item"><span class="summary-label">물리 키</span><span class="summary-value">${total}개</span></div>
+        <div class="summary-item"><span class="summary-label">이 레이어의 매핑</span><span class="summary-value">${mapped}개</span></div>
+        <div class="summary-item"><span class="summary-label">투과 키</span><span class="summary-value">${transparent}개</span></div>`;
+    }
+
+    function makeKey(physical, value, row, side, col) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `key ${category(value)}`;
+      if (value !== -1) {
+        button.setAttribute("aria-label", `${label(physical)}: ${label(value)}`);
+        button.innerHTML = `<span class="key-index">${side === "left" ? row : row + 5}:${col}</span><span class="physical-label">${label(physical)}</span><span class="key-label">${label(value)}</span>`;
+        button.addEventListener("click", () => {
+          selectedKey = { physical, value, row, side, col };
+          document.getElementById("selection").innerHTML = `<strong>L${selectedLayer} · ${label(physical)}</strong> → ${label(value)} <span class="text-muted">(${value})</span>`;
+        });
+      } else {
+        button.disabled = true;
+        button.setAttribute("aria-hidden", "true");
+      }
+      return button;
+    }
+
+    function renderBoard() {
+      const board = document.getElementById("board");
+      board.innerHTML = "";
+      physicalRows().forEach(({ left, right, leftValues, rightValues, row }) => {
+        const boardRow = document.createElement("div");
+        boardRow.className = "board-row";
+        const leftHalf = document.createElement("div");
+        leftHalf.className = "half";
+        left.forEach((physical, col) => leftHalf.appendChild(makeKey(physical, leftValues[col], row, "left", col)));
+        const divider = document.createElement("div");
+        divider.className = "half-gap";
+        const rightHalf = document.createElement("div");
+        rightHalf.className = "half";
+        right.forEach((physical, col) => rightHalf.appendChild(makeKey(physical, rightValues[col], row, "right", col)));
+        boardRow.append(leftHalf, divider, rightHalf);
+        board.appendChild(boardRow);
+      });
+    }
+
+    function render() {
+      renderPicker();
+      renderSummary();
+      renderBoard();
+      document.getElementById("selection").textContent = selectedKey ? `${label(selectedKey.physical)} → ${label(selectedKey.value)}` : "키를 선택하면 물리 키와 출력 동작을 자세히 볼 수 있습니다.";
+    }
+    render();
+  </script>
+</body>
+</html>
