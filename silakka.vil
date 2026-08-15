@@ -52,7 +52,7 @@
                 "KC_6"
             ],
             [
-                "KC_LBRACKET",
+                "KC_NO",
                 "KC_P",
                 "KC_O",
                 "KC_I",
@@ -68,7 +68,7 @@
                 "KC_H"
             ],
             [
-                "KC_RBRACKET",
+                "KC_NO",
                 "KC_SLASH",
                 "KC_DOT",
                 "KC_COMMA",
@@ -150,8 +150,8 @@
                 "KC_PGDOWN"
             ],
             [
-                "KC_LBRACKET",
                 "KC_RBRACKET",
+                "KC_LBRACKET",
                 "KC_ENTER",
                 "KC_DELETE",
                 "KC_BSPACE",
