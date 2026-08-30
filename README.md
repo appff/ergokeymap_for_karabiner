@@ -6,12 +6,12 @@
 
 [한국어 문서](./README.ko.md)
 
-60% Ergo was created for a specific ergonomic problem: repeatedly reaching with the right pinky and bending the right wrist outward was causing discomfort and fatigue. This layout moves frequently used navigation, editing, symbol, and function actions to a SpaceFN layer operated with the left thumb, reducing right-hand movement and load.
+60% Ergo was created for a specific ergonomic problem: repeatedly reaching with the right pinky and bending the right wrist outward was causing discomfort and fatigue. This layout moves frequently used navigation, editing, symbol, media, and function actions to a SpaceFN layer operated with the left thumb, reducing right-hand movement and load.
 
 This Karabiner-Elements complex modification turns the `Space` key on every keyboard connected to this computer into two behaviors:
 
 - Tap `Space` for a normal space.
-- Hold `Space` for 50 ms or longer to activate SpaceFN.
+- Hold `Space` for 75 ms or longer to activate SpaceFN.
 
 The configuration also includes rollover-safe handling so a fast `Space` + key sequence preserves both the space and the following key when the sequence is intended as normal typing.
 
@@ -20,15 +20,15 @@ The configuration also includes rollover-safe handling so a fast `Space` + key s
 | Input | Behavior |
 | --- | --- |
 | Tap `Space` alone within 500 ms | Normal `Space` |
-| Press another key within 50 ms of `Space` | Normal `Space` + key input |
-| Hold `Space` for 50 ms or longer | Activate the SpaceFN layer |
+| Press another key within 75 ms of `Space` | Normal `Space` + key input |
+| Hold `Space` for 75 ms or longer | Activate the SpaceFN layer |
 | Press a mapped key while the layer is active | Run the SpaceFN action |
 | Release `Space` | Clear the SpaceFN layer |
 | `Ctrl + Space` | Pass through to macOS for input-source switching |
 
-If the target key arrives before the 50 ms threshold, the SpaceFN attempt is canceled and the delayed action restores a normal space. For reliable SpaceFN chords, press `Space` first and hold it briefly before pressing the target key.
+If the target key arrives before the 75 ms threshold, the SpaceFN attempt is canceled and the delayed action restores a normal space. For reliable SpaceFN chords, press `Space` first and hold it briefly before pressing the target key.
 
-> Holding `Space` alone for more than 500 ms does not emit a space. For a SpaceFN chord, hold `Space` for roughly 50 ms before pressing the target key.
+> Holding `Space` alone for more than 500 ms does not emit a space. For a SpaceFN chord, hold `Space` for roughly 75 ms before pressing the target key.
 
 ## Layout map
 
@@ -43,6 +43,7 @@ The table below lists every SpaceFN mapping as `[physical key / output]`. Keys n
 | `Y` / `H` | Page Up / Page Down | Page navigation |
 | `U` / `O` | Home / End | Line navigation |
 | `I` / `J` / `K` / `L` | ↑ / ← / ↓ / → | Cursor movement |
+| `A` / `S` / `D` | Volume down / volume up / mute | Media |
 | `F` | Escape | Editing |
 | `G` | `;` | Symbol |
 | `M` | Backspace | Editing |
@@ -79,15 +80,18 @@ The table below lists every SpaceFN mapping as `[physical key / output]`. Keys n
 | `Space + B` | Backtick in ABC; `₩` in Korean input | Input-source dependent |
 | `Space + N` | `?` | — |
 
-For shifted symbols, press `Shift` first, hold `Space` for about 50 ms, and then press the target key.
+For shifted symbols, press `Shift` first, hold `Space` for about 75 ms, and then press the target key.
 
-### Function keys
+### Media and function keys
 
 | Combination | Action |
 | --- | --- |
+| `Space + A/S/D` | Volume down / volume up / mute |
 | `Space + 1~0` | F1~F10 |
 | `Space + -` | F11 |
 | `Space + =` | F12 |
+
+For normal typing, press the next A/S/D key within 75 ms of `Space`. For media actions, hold `Space` for at least 75 ms before pressing A/S/D.
 
 `Ctrl + Space` is excluded from the SpaceFN controller, so it is passed to macOS unchanged for input-source switching.
 
@@ -96,13 +100,13 @@ For shifted symbols, press `Shift` first, hold `Space` for about 50 ms, and then
 The following two values in [`hhkb_spacefn_final.json`](./hhkb_spacefn_final.json) must always be kept identical:
 
 ```json
-"basic.to_if_held_down_threshold_milliseconds": 50,
-"basic.to_delayed_action_delay_milliseconds": 50
+"basic.to_if_held_down_threshold_milliseconds": 75,
+"basic.to_delayed_action_delay_milliseconds": 75
 ```
 
-- The current 50 ms value is an experimental fast-response setting.
-- If SpaceFN activates accidentally during normal typing, raise both values together to `75`, `100`, `120`, or `150`.
-- If 50 ms causes too many false activations, return to the previously tested 75 ms setting.
+- The current 75 ms value balances layer responsiveness and typing rollover.
+- If SpaceFN activates accidentally during normal typing, raise both values together to `100`, `120`, or `150`.
+- If layer activation feels too slow, lower both values together to `50`.
 - The standalone Space timeout is `basic.to_if_alone_timeout_milliseconds: 500`.
 
 ## Compatibility and scope
@@ -113,9 +117,9 @@ The layout is intended for standard 60% and smaller keyboards with an HHKB-like 
 
 - No device filter: the rule applies to all keyboards connected to this computer
 - SpaceFN state variable: `hhkb_spacefn`
-- One rule with 27 manipulators: one layer controller plus 26 function and symbol mappings
-- Holding `Space` for 50 ms sets `hhkb_spacefn = 1`; releasing it resets the variable through `key_up_value`
-- A key arriving before 50 ms triggers `to_delayed_action.to_if_canceled`, which restores a normal space
+- One rule with 30 manipulators: one layer controller plus 29 navigation, editing, symbol, media, and function mappings
+- Holding `Space` for 75 ms sets `hhkb_spacefn = 1`; releasing it resets the variable through `key_up_value`
+- A key arriving before 75 ms triggers `to_delayed_action.to_if_canceled`, which restores a normal space
 - Mappings preserve additional modifiers, allowing shifted symbols and navigation modifiers
 - The state variable limits mapped actions to an active SpaceFN layer, while the absence of a device filter makes the rule keyboard-agnostic on this computer
 
