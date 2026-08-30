@@ -6,7 +6,7 @@
 
 [한국어 문서](./README.ko.md)
 
-60% Ergo was created for a specific ergonomic problem: repeatedly reaching with the right pinky and bending the right wrist outward was causing discomfort and fatigue. This layout moves frequently used navigation, editing, symbol, media, and function actions to a SpaceFN layer operated with the left thumb, reducing right-hand movement and load.
+60% Ergo was created for a specific ergonomic problem: repeatedly reaching with the right pinky and bending the right wrist outward was causing discomfort and fatigue. This layout moves frequently used navigation, editing, symbol, and function actions to a SpaceFN layer operated with the left thumb, reducing right-hand movement and load.
 
 This Karabiner-Elements complex modification turns the `Space` key on every keyboard connected to this computer into two behaviors:
 
@@ -43,7 +43,6 @@ The table below lists every SpaceFN mapping as `[physical key / output]`. Keys n
 | `Y` / `H` | Page Up / Page Down | Page navigation |
 | `U` / `O` | Home / End | Line navigation |
 | `I` / `J` / `K` / `L` | ↑ / ← / ↓ / → | Cursor movement |
-| `A` / `S` / `D` | Volume down / volume up / mute | Media |
 | `F` | Escape | Editing |
 | `G` | `;` | Symbol |
 | `M` | Backspace | Editing |
@@ -82,16 +81,13 @@ The table below lists every SpaceFN mapping as `[physical key / output]`. Keys n
 
 For shifted symbols, press `Shift` first, hold `Space` for about 50 ms, and then press the target key.
 
-### Media and function keys
+### Function keys
 
 | Combination | Action |
 | --- | --- |
-| `Space + A/S/D` | Volume down / volume up / mute |
 | `Space + 1~0` | F1~F10 |
 | `Space + -` | F11 |
 | `Space + =` | F12 |
-
-For normal typing, press `Space` and the next A/S/D key within 50 ms. For media actions, hold `Space` for at least 50 ms before pressing A/S/D.
 
 `Ctrl + Space` is excluded from the SpaceFN controller, so it is passed to macOS unchanged for input-source switching.
 
@@ -117,7 +113,7 @@ The layout is intended for standard 60% and smaller keyboards with an HHKB-like 
 
 - No device filter: the rule applies to all keyboards connected to this computer
 - SpaceFN state variable: `hhkb_spacefn`
-- One rule with 38 manipulators: one layer controller plus 37 function and symbol mappings
+- One rule with 27 manipulators: one layer controller plus 26 function and symbol mappings
 - Holding `Space` for 50 ms sets `hhkb_spacefn = 1`; releasing it resets the variable through `key_up_value`
 - A key arriving before 50 ms triggers `to_delayed_action.to_if_canceled`, which restores a normal space
 - Mappings preserve additional modifiers, allowing shifted symbols and navigation modifiers
