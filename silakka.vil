@@ -52,7 +52,7 @@
                 "KC_6"
             ],
             [
-                "KC_NO",
+                "KC_EQUAL",
                 "KC_P",
                 "KC_O",
                 "KC_I",
@@ -68,7 +68,7 @@
                 "KC_H"
             ],
             [
-                "KC_NO",
+                "KC_MINUS",
                 "KC_SLASH",
                 "KC_DOT",
                 "KC_COMMA",
@@ -135,7 +135,7 @@
             ],
             [
                 "KC_F12",
-                "KC_EQUAL",
+                "KC_TRNS",
                 "KC_END",
                 "KC_UP",
                 "KC_HOME",
@@ -143,7 +143,7 @@
             ],
             [
                 "KC_TRNS",
-                "KC_MINUS",
+                "KC_TRNS",
                 "KC_RIGHT",
                 "KC_DOWN",
                 "KC_LEFT",
@@ -155,7 +155,7 @@
                 "KC_ENTER",
                 "KC_DELETE",
                 "KC_BSPACE",
-                "S(KC_SLASH)"
+                "LSFT(KC_SLASH)"
             ],
             [
                 -1,

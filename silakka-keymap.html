@@ -194,11 +194,11 @@
     ],[
       "KC_BSPACE","KC_0","KC_9","KC_8","KC_7","KC_6"
     ],[
-      "KC_NO","KC_P","KC_O","KC_I","KC_U","KC_Y"
+      "KC_EQUAL","KC_P","KC_O","KC_I","KC_U","KC_Y"
     ],[
       "KC_ENTER","KC_SCOLON","KC_L","KC_K","KC_J","KC_H"
     ],[
-      "KC_NO","KC_SLASH","KC_DOT","KC_COMMA","KC_M","KC_N"
+      "KC_MINUS","KC_SLASH","KC_DOT","KC_COMMA","KC_M","KC_N"
     ],[
       -1,-1,-1,"MO(2)","MO(1)","KC_SPACE"
     ]],[[
@@ -214,11 +214,11 @@
     ],[
       "KC_F11","KC_F10","KC_F9","KC_F8","KC_F7","KC_F6"
     ],[
-      "KC_F12","KC_EQUAL","KC_END","KC_UP","KC_HOME","KC_PGUP"
+      "KC_F12","KC_TRNS","KC_END","KC_UP","KC_HOME","KC_PGUP"
     ],[
-      "KC_TRNS","KC_MINUS","KC_RIGHT","KC_DOWN","KC_LEFT","KC_PGDOWN"
+      "KC_TRNS","KC_TRNS","KC_RIGHT","KC_DOWN","KC_LEFT","KC_PGDOWN"
     ],[
-      "KC_RBRACKET","KC_LBRACKET","KC_ENTER","KC_DELETE","KC_BSPACE","S(KC_SLASH)"
+      "KC_RBRACKET","KC_LBRACKET","KC_ENTER","KC_DELETE","KC_BSPACE","LSFT(KC_SLASH)"
     ],[
       -1,-1,-1,"KC_TRNS","KC_TRNS","KC_TRNS"
     ]],[[
@@ -256,7 +256,7 @@
       KC_SLASH: "/", KC_DOT: ".", KC_COMMA: ",", KC_VOLD: "Vol −", KC_VOLU: "Vol +", KC_MUTE: "Mute",
       KC_DELETE: "Delete", KC_EQUAL: "=", KC_MINUS: "−", KC_UP: "↑", KC_DOWN: "↓", KC_LEFT: "←", KC_RIGHT: "→",
       KC_HOME: "Home", KC_END: "End", KC_PGUP: "Page Up", KC_PGDOWN: "Page Down", KC_TRNS: "Transparent",
-      "S(KC_SLASH)": "?", "MO(1)": "Hold → L1", "MO(2)": "Hold → L2"
+      "LSFT(KC_SLASH)": "?", "MO(1)": "Hold → L1", "MO(2)": "Hold → L2"
     };
     for (let i = 1; i <= 12; i++) aliases[`KC_F${i}`] = `F${i}`;
     for (const letter of "ABCDEFGHIJKLMNOPQRSTUVWXYZ") aliases[`KC_${letter}`] = letter;
@@ -267,7 +267,7 @@
       if (value === -1 || value === "KC_TRNS") return value === "KC_TRNS" ? "transparent" : "dead";
       if (/^KC_F\d+$/.test(value)) return "function";
       if (["KC_UP","KC_DOWN","KC_LEFT","KC_RIGHT","KC_HOME","KC_END","KC_PGUP","KC_PGDOWN","KC_DELETE","KC_BSPACE","KC_ENTER"].includes(value)) return "navigation";
-      if (["KC_EQUAL","KC_MINUS","KC_LBRACKET","KC_RBRACKET","S(KC_SLASH)","KC_SCOLON","KC_SLASH","KC_DOT","KC_COMMA"].includes(value)) return "symbol";
+      if (["KC_EQUAL","KC_MINUS","KC_LBRACKET","KC_RBRACKET","LSFT(KC_SLASH)","KC_SCOLON","KC_SLASH","KC_DOT","KC_COMMA"].includes(value)) return "symbol";
       if (["KC_VOLD","KC_VOLU","KC_MUTE"].includes(value)) return "media";
       return "physical";
     };
