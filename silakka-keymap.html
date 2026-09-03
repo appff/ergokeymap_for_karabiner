@@ -202,11 +202,11 @@
     ],[
       -1,-1,-1,"MO(2)","MO(1)","KC_SPACE"
     ]],[[
-      "KC_TRNS","KC_F1","KC_F2","KC_F3","KC_F4","KC_F5"
+      "KC_GRAVE","KC_F1","KC_F2","KC_F3","KC_F4","KC_F5"
     ],[
       "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
     ],[
-      "KC_TRNS","KC_VOLD","KC_VOLU","KC_MUTE","KC_ESCAPE","KC_SCOLON"
+      "KC_TRNS","KC_VOLD","KC_VOLU","KC_MUTE","KC_TRNS","KC_TRNS"
     ],[
       "KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS","KC_TRNS"
     ],[
@@ -216,7 +216,7 @@
     ],[
       "KC_F12","KC_TRNS","KC_END","KC_UP","KC_HOME","KC_PGUP"
     ],[
-      "KC_TRNS","KC_TRNS","KC_RIGHT","KC_DOWN","KC_LEFT","KC_PGDOWN"
+      "KC_TRNS","KC_QUOTE","KC_RIGHT","KC_DOWN","KC_LEFT","KC_PGDOWN"
     ],[
       "KC_RBRACKET","KC_LBRACKET","KC_ENTER","KC_DELETE","KC_BSPACE","LSFT(KC_SLASH)"
     ],[
@@ -252,7 +252,7 @@
 
     const aliases = {
       KC_ESCAPE: "Esc", KC_TAB: "Tab", KC_LCTRL: "Ctrl", KC_LSHIFT: "Shift", KC_LALT: "Alt", KC_LGUI: "Cmd",
-      KC_SPACE: "Space", KC_BSPACE: "Backspace", KC_ENTER: "Enter", KC_SCOLON: ";", KC_LBRACKET: "[", KC_RBRACKET: "]", KC_NO: "Disabled",
+      KC_SPACE: "Space", KC_BSPACE: "Backspace", KC_ENTER: "Enter", KC_SCOLON: ";", KC_GRAVE: "`", KC_QUOTE: "'", KC_LBRACKET: "[", KC_RBRACKET: "]", KC_NO: "Disabled",
       KC_SLASH: "/", KC_DOT: ".", KC_COMMA: ",", KC_VOLD: "Vol −", KC_VOLU: "Vol +", KC_MUTE: "Mute",
       KC_DELETE: "Delete", KC_EQUAL: "=", KC_MINUS: "−", KC_UP: "↑", KC_DOWN: "↓", KC_LEFT: "←", KC_RIGHT: "→",
       KC_HOME: "Home", KC_END: "End", KC_PGUP: "Page Up", KC_PGDOWN: "Page Down", KC_TRNS: "Transparent",
@@ -267,7 +267,7 @@
       if (value === -1 || value === "KC_TRNS") return value === "KC_TRNS" ? "transparent" : "dead";
       if (/^KC_F\d+$/.test(value)) return "function";
       if (["KC_UP","KC_DOWN","KC_LEFT","KC_RIGHT","KC_HOME","KC_END","KC_PGUP","KC_PGDOWN","KC_DELETE","KC_BSPACE","KC_ENTER"].includes(value)) return "navigation";
-      if (["KC_EQUAL","KC_MINUS","KC_LBRACKET","KC_RBRACKET","LSFT(KC_SLASH)","KC_SCOLON","KC_SLASH","KC_DOT","KC_COMMA"].includes(value)) return "symbol";
+      if (["KC_EQUAL","KC_MINUS","KC_GRAVE","KC_QUOTE","KC_LBRACKET","KC_RBRACKET","LSFT(KC_SLASH)","KC_SCOLON","KC_SLASH","KC_DOT","KC_COMMA"].includes(value)) return "symbol";
       if (["KC_VOLD","KC_VOLU","KC_MUTE"].includes(value)) return "media";
       return "physical";
     };
